@@ -12,7 +12,7 @@ app.set('view engine', 'ejs');
 mongoose.connect('mongodb://localhost:27017/agenda');
 
 app.get('/', (req, res)=>{
-    res.render('create')
+    res.render('index')
 });
 
 app.post('/appointment', (req, res)=>{
@@ -31,6 +31,11 @@ app.post('/appointment', (req, res)=>{
     
     }
 
+});
+
+app.get('/calendar', async (req, res)=>{
+    let appointments = await appointmentService.findAll();
+    res.send(appointments);
 })
 
 
