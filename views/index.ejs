@@ -17,7 +17,11 @@
     let calendarEl = document.getElementById("calendar");
     let calendar = new FullCalendar.Calendar(calendarEl, {
         initialView: 'dayGridMonth',
-        locale: 'pt-br'
+        locale: 'pt-br',
+        events: 'calendar',
+        eventClick: info =>{
+            window.location.href = '/appointment/' + info.event.id;
+        }
     });
     calendar.render();
 </script>

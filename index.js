@@ -15,16 +15,25 @@ app.get('/', (req, res)=>{
     res.render('index')
 });
 
+app.get('/register', (req, res)=>{
+    res.render('create');
+});
+
+app.get('/appointment/:id', async (req, res)=>{
+    let id = req.params.id;
+    let appo = await appointmentService.findOneById(id);
+    res.render('view', { appo: appo});
+})
 app.post('/appointment', (req, res)=>{
     const {name, email, description, cpf, date, time} = req.body;
     if(name && email && description && cpf && date && time){
         const result = appointmentService.create(name, email, description, cpf, date, time);
         if(result){
             res.status(201);
-            res.render('create');
+            res.render('index');
         }else{
             console.log('Ocorreu um erro ao salvar a consulta')
-            res.render('create');
+            res.render('index');
         }
     }else{
         res.json({allFieldsFilled: 'false'});
@@ -33,8 +42,14 @@ app.post('/appointment', (req, res)=>{
 
 });
 
+app.post('/close', async (req, res)=>{
+    let id = req.body.id;
+    let result = await appointmentService.closeAppointment(id);
+    res.redirect("/")
+})
+
 app.get('/calendar', async (req, res)=>{
-    let appointments = await appointmentService.findAll();
+    let appointments = await appointmentService.findAll(false);
     res.send(appointments);
 })
 

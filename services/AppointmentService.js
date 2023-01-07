@@ -26,7 +26,7 @@ class AppointmentService{
         }
     }  
     
-    async findAll(showFinished = false){
+    async findAll(showFinished){
 
         if(showFinished){
             try{
@@ -52,6 +52,26 @@ class AppointmentService{
             }
         }
 
+    }
+
+    async findOneById(id){
+        try{
+            return await Appo.findById(id);
+        }catch(err){
+            console.log(err);
+            return err;
+        }
+        
+    }
+
+    async closeAppointment(id){
+        try{
+            await Appo.findOneAndUpdate({_id: id},{finished:true});
+            return true;
+        }catch(err){
+            console.log(err);
+            return false;
+        }
     }
 }
 

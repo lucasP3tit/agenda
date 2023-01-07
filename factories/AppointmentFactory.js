@@ -6,7 +6,7 @@ class AppointmentFactory{
         let month = simpleAppointment.date.getMonth();
         let  year = simpleAppointment.date.getFullYear();
         let time = simpleAppointment.time.split(':');
-        let hour = parseInt(time[0]) -3;
+        let hour = parseInt(time[0]);
         let minute = parseInt(time[1]);
         let formatDate = new Date(year, month, day, hour, minute, 0, 0);
 
