@@ -59,9 +59,18 @@ class AppointmentService{
             return await Appo.findById(id);
         }catch(err){
             console.log(err);
-            return err;
+            return false;
         }
         
+    }
+
+    async findOneByEmailOrCpf(term){
+        try{
+            return await Appo.find().or([{'cpf': term}, {'email': term}]);     
+        }catch(err){
+            console.log(err);
+            return false;
+        }
     }
 
     async closeAppointment(id){

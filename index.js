@@ -51,7 +51,21 @@ app.post('/close', async (req, res)=>{
 app.get('/calendar', async (req, res)=>{
     let appointments = await appointmentService.findAll(false);
     res.send(appointments);
-})
+});
+
+app.get('/list', async (req, res)=>{
+    let appos = await appointmentService.findAll(true);
+    res.render('list', {appos})
+});
+
+app.post('/search', async(req, res)=>{
+    let term = req.body.search;
+    let appos = await appointmentService.findOneByEmailOrCpf(term);
+    if(appos){
+        res.render('list', { appos });
+    }
+    res.redirect("/list");
+});
 
 
 app.listen(8080, ()=>console.log('api running'));
