@@ -14,7 +14,9 @@ class AppointmentFactory{
             id: simpleAppointment.id,
             title: simpleAppointment.name + ' ' + simpleAppointment.description,
             start: formatDate,
-            end: formatDate
+            end: formatDate,
+            email: simpleAppointment.email,
+            notified: simpleAppointment.notified
         }
         
         return appo;

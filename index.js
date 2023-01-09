@@ -67,5 +67,8 @@ app.post('/search', async(req, res)=>{
     res.redirect("/list");
 });
 
+setInterval(async()=>{
+    await appointmentService.sendNotification();
+}, 500000);
 
 app.listen(8080, ()=>console.log('api running'));
